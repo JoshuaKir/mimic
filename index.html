@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdn.rawgit.com/BrainJS/brain.js/45ce6ffc/browser.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+        <script type="text/javascript">
+        function getResult (){
+	        var URL = "http://localhost:8080/test";
+	        $.ajax({
+	        	type: "GET",
+	        	url: URL,
+		        data: 
+					{
+						  
+					},
+					dataType: "text",
+					
+					success: function(msg) {
+						//alert("worked")
+						if (msg != "failed"){
+							document.getElementById("resultDiv").innerHTML=msg
+						}
+						else {
+							document.getElementById("resultDiv").innerHTML="Result failed!"
+						}
+					},
+
+		    		error: function (xhr, ajaxOptions, thrownError) {
+					console.log("Call messed up");
+					}
+				});
+			}
+
+        function trainData (){
+	        var URL = "http://localhost:8080/train";
+	        $.ajax({
+	        	type: "GET",
+	        	url: URL,
+		        data: 
+					{
+						  
+					},
+					dataType: "text",
+					
+					success: function(msg) {
+						//alert("worked")
+						if (msg != "failed"){
+							console.log(msg)
+						}
+						else {
+							console.log("Failed")
+						}
+					},
+
+		    		error: function (xhr, ajaxOptions, thrownError) {
+					console.log("Call messed up");
+					}
+				});
+			}
+		</script>
+    </head>
+    <body>
+    </body>
+    <div id=buttons>
+    	<form>
+	    	<input type="button" name="trainButton" value="Train" onclick="trainData()">
+	    	<input type="button" name="testButton" value="Test!" onclick="getResult()">
+    	</form>
+    <div id="resultDiv">
+    </div>	
+</html>
