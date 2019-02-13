@@ -120,10 +120,8 @@ embedding_dim = 256
 rnn_units = 1024
 
 if tf.test.is_gpu_available():
-  print("USING GPU")
   rnn = tf.keras.layers.CuDNNGRU
 else:
-  print("NOT USING GPU")
   import functools
   rnn = functools.partial(tf.keras.layers.GRU, recurrent_activation='sigmoid')
 
@@ -170,7 +168,7 @@ checkpoint_callback=tf.keras.callbacks.ModelCheckpoint(
 EPOCHS=5 #num of iterations
 
 #If model.fir will make the model and save it to a directory. You can comment this out if you like your current model
-history = model.fit(dataset.repeat(), epochs=EPOCHS, steps_per_epoch=steps_per_epoch, callbacks=[checkpoint_callback])
+#history = model.fit(dataset.repeat(), epochs=EPOCHS, steps_per_epoch=steps_per_epoch, callbacks=[checkpoint_callback])
 
 tf.train.latest_checkpoint(checkpoint_dir)
 
@@ -222,4 +220,5 @@ def generate_text(model, start_string):
 
   return (start_string + ''.join(text_generated))
 
-print(generate_text(model, start_string=u"betrayal"))
+while True:
+  print(generate_text(model, input("Write something")))
